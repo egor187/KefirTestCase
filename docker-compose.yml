@@ -1,0 +1,31 @@
+version: "3"
+
+networks:
+  backend:
+
+services:
+  postgresql:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    networks:
+      - backend
+    env_file:
+      - .env
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+
+  kefir_api:
+    restart: unless-stopped
+    build: .
+    container_name: kefir_api
+    networks:
+      - backend
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgresql
+    env_file:
+      - .env
+    volumes:
+      - .:/KefirAPIData
