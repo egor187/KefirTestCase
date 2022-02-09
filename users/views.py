@@ -1,8 +1,9 @@
-from rest_framework.generics import RetrieveAPIView, get_object_or_404
+from rest_framework.generics import RetrieveAPIView, ListAPIView, get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 
 from .models import KefirUser
-from .serializers import KefirUserSerializer
+from .serializers import KefirUserSerializer, KefirUserListSerializer
+from KefirService.pagination import KefirPaginator
 
 
 class CommonUserDetailView(RetrieveAPIView):
@@ -15,3 +16,9 @@ class CommonUserDetailView(RetrieveAPIView):
         obj = get_object_or_404(queryset, pk=self.request.user.pk)
         self.check_object_permissions(self.request, obj)
         return obj
+
+
+class CommonUserListView(ListAPIView):
+    queryset = KefirUser.objects.all()
+    serializer_class = KefirUserListSerializer
+    pagination_class = KefirPaginator
