@@ -38,3 +38,17 @@ class KefirUserListSerializer(serializers.ModelSerializer):
             "email",
             "city"
         ]
+
+
+class KefirUserUpdateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = KefirUser
+        fields = [
+            "first_name",
+            "last_name",
+            "other_name",
+            "email",
+            "phone",
+            "birthday",
+        ]
