@@ -24,29 +24,17 @@ class KefirUserSerializer(serializers.ModelSerializer):
             "city"
         ]
 
-# "CurrentUserResponseModel": {
-#                 "title": "CurrentUserResponseModel",
-#                 "required": [
-#                     "first_name",
-#                     "last_name",
-#                     "other_name",
-#                     "email",
-#                     "phone",
-#                     "birthday",
-#                     "is_admin",
-#                 ],
-#                 "type": "object",
-#                 "properties": {
-#                     "first_name": {"title": "First Name", "type": "string"},
-#                     "last_name": {"title": "Last Name", "type": "string"},
-#                     "other_name": {"title": "Other Name", "type": "string"},
-#                     "email": {"title": "Email", "type": "string"},
-#                     "phone": {"title": "Phone", "type": "string"},
-#                     "birthday": {
-#                         "title": "Birthday",
-#                         "type": "string",
-#                         "format": "date",
-#                     },
-#                     "is_admin": {"title": "Is Admin", "type": "boolean"},
-#                 },
-#             },
+
+class KefirUserListSerializer(serializers.ModelSerializer):
+    city = CitySerializer()
+    id = serializers.IntegerField(source="pk")
+
+    class Meta:
+        model = KefirUser
+        fields = [
+            "id",
+            "first_name",
+            "last_name",
+            "email",
+            "city"
+        ]
