@@ -30,7 +30,7 @@ class CommonUserUpdateView(UpdateAPIView):
 
 
 class AdminUserListView(ListCreateAPIView):
-    permission_classes = [IsAdminUser]
+    # permission_classes = [IsAdminUser]
     queryset = KefirUser.objects.all()
     serializer_class = KefirAdminUserListSerializer
     pagination_class = KefirAdminPaginator
