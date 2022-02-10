@@ -15,7 +15,7 @@ class KefirUser(AbstractUser):
     other_name = models.CharField(max_length=150, blank=True)
     phone = PhoneNumberField(unique=True, blank=True, null=True)
     birthday = models.DateField(blank=True, null=True)
-    city = models.ForeignKey(City, on_delete=models.PROTECT, related_name="kefir_users", null=True)
+    city = models.ManyToManyField(City, related_name="kefir_users")
     additional_info = models.TextField(null=True)
     is_admin = None
 
