@@ -2,10 +2,10 @@ from rest_framework import serializers
 from users.models import KefirUser, City
 
 
-class CitySerializer(serializers.ModelSerializer):
+class CitySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = City
-        fields = ("name",)
+        fields = ["name"]
 
 
 class KefirUserSerializer(serializers.ModelSerializer):
@@ -26,7 +26,6 @@ class KefirUserSerializer(serializers.ModelSerializer):
 
 
 class KefirUserListSerializer(serializers.ModelSerializer):
-    city = CitySerializer()
     id = serializers.IntegerField(source="pk")
 
     class Meta:
@@ -36,8 +35,31 @@ class KefirUserListSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "email",
+        ]
+
+
+class KefirAdminUserListSerializer(serializers.ModelSerializer):
+    city = CitySerializer(many=True)
+
+    class Meta:
+        model = KefirUser
+        fields = [
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+            "email",
             "city"
         ]
+        depth = 1
+
+    def create(self, validated_data):
+        city_data = validated_data.pop("city")
+        kefir_user = KefirUser.objects.create(**validated_data)
+        for city in city_data:
+            city = City.objects.get_or_create(**dict(city))[0]
+            kefir_user.city.add(city)
+        return kefir_user
 
 
 class KefirUserUpdateSerializer(serializers.ModelSerializer):
