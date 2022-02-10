@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import KefirUser, City
+
+from users.models import KefirUser, City
 
 
 class KefirUserAdmin(admin.ModelAdmin):

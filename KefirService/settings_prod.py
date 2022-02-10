@@ -1,4 +1,4 @@
-from .settings import *
+from KefirService.settings import *
 
 DEBUG = False
 

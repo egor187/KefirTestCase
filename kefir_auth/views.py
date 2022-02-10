@@ -1,12 +1,13 @@
-from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from kefir_auth.serializers import LoginSerializer
-from users.serializers import KefirUserSerializer
 
 from loguru import logger
+
+from kefir_auth.serializers import LoginSerializer
+from users.serializers import KefirUserSerializer
 
 
 class LoginView(APIView):

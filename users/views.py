@@ -1,8 +1,8 @@
 from rest_framework.generics import RetrieveAPIView, ListAPIView, ListCreateAPIView, UpdateAPIView, get_object_or_404
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
-from .models import KefirUser
-from .serializers import KefirUserSerializer, KefirUserListSerializer, KefirUserUpdateSerializer, KefirAdminUserListSerializer
+from users.models import KefirUser
+from users.serializers import KefirUserSerializer, KefirUserListSerializer, KefirUserUpdateSerializer, KefirAdminUserListSerializer
 from KefirService.pagination import KefirPaginator, KefirAdminPaginator
 
 
@@ -30,7 +30,7 @@ class CommonUserUpdateView(UpdateAPIView):
 
 
 class AdminUserListView(ListCreateAPIView):
-    # permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser]
     queryset = KefirUser.objects.all()
     serializer_class = KefirAdminUserListSerializer
     pagination_class = KefirAdminPaginator
