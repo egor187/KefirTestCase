@@ -25,3 +25,17 @@ class KefirPaginator(PageNumberPagination):
             }},
             'data': data
         })
+
+
+class KefirAdminPaginator(PageNumberPagination):
+    def get_paginated_response(self, data):
+        return Response({
+            "meta": {
+                "pagination": {
+                'total': self.page.paginator.count,
+                'page': self.request.query_params.get("page", "1"),
+                'size': len(data)
+                },
+            },
+            'data': data
+        })
